@@ -38,7 +38,6 @@ import com.m_code.Fawry.Auth.security.jwt.JwtUtils;
 import com.m_code.Fawry.Auth.security.services.RefreshTokenService;
 import com.m_code.Fawry.Auth.security.services.UserDetailsImpl;
 
-//@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600, allowCredentials="true")
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
@@ -76,18 +75,19 @@ public class AuthController {
     List<String> roles = userDetails.getAuthorities().stream()
         .map(item -> item.getAuthority())
         .collect(Collectors.toList());
-    
+
     RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
-    
+
     ResponseCookie jwtRefreshCookie = jwtUtils.generateRefreshJwtCookie(refreshToken.getToken());
 
     return ResponseEntity.ok()
-              .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-              .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString())
-              .body(new UserInfoResponse(userDetails.getId(),
-                                         userDetails.getUsername(),
-                                         userDetails.getEmail(),
-                                         roles));
+        .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+        .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString())
+        .body(new UserInfoResponse(userDetails.getId(),
+            userDetails.getUsername(),
+            userDetails.getEmail(),
+            userDetails.getBalance(),
+            roles));
   }
 
   @PostMapping("/signup")
@@ -102,8 +102,8 @@ public class AuthController {
 
     // Create new user's account
     User user = new User(signUpRequest.getUsername(),
-                         signUpRequest.getEmail(),
-                         encoder.encode(signUpRequest.getPassword()));
+        signUpRequest.getEmail(),
+        encoder.encode(signUpRequest.getPassword()));
 
     Set<String> strRoles = signUpRequest.getRole();
     Set<Role> roles = new HashSet<>();
@@ -115,17 +115,17 @@ public class AuthController {
     } else {
       strRoles.forEach(role -> {
         switch (role) {
-        case "admin":
-          Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-          roles.add(adminRole);
+          case "admin":
+            Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(adminRole);
 
-          break;
+            break;
 
-        default:
-          Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-          roles.add(userRole);
+          default:
+            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(userRole);
         }
       });
     }
@@ -139,11 +139,11 @@ public class AuthController {
   @PostMapping("/signout")
   public ResponseEntity<?> logoutUser() {
     Object principle = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    if (principle.toString() != "anonymousUser") {      
+    if (principle.toString() != "anonymousUser") {
       Long userId = ((UserDetailsImpl) principle).getId();
       refreshTokenService.deleteByUserId(userId);
     }
-    
+
     ResponseCookie jwtCookie = jwtUtils.getCleanJwtCookie();
     ResponseCookie jwtRefreshCookie = jwtUtils.getCleanJwtRefreshCookie();
 
@@ -156,14 +156,14 @@ public class AuthController {
   @PostMapping("/refreshtoken")
   public ResponseEntity<?> refreshtoken(HttpServletRequest request) {
     String refreshToken = jwtUtils.getJwtRefreshFromCookies(request);
-    
+
     if ((refreshToken != null) && (refreshToken.length() > 0)) {
       return refreshTokenService.findByToken(refreshToken)
           .map(refreshTokenService::verifyExpiration)
           .map(RefreshToken::getUser)
           .map(user -> {
             ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(user);
-            
+
             return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
                 .body(new MessageResponse("Token is refreshed successfully!"));
@@ -171,7 +171,7 @@ public class AuthController {
           .orElseThrow(() -> new TokenRefreshException(refreshToken,
               "Refresh token is not in database!"));
     }
-    
+
     return ResponseEntity.badRequest().body(new MessageResponse("Refresh Token is empty!"));
   }
 }

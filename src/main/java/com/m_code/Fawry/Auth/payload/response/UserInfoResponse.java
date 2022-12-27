@@ -6,12 +6,16 @@ public class UserInfoResponse {
 	private Long id;
 	private String username;
 	private String email;
+
+	private double balance;
+
 	private List<String> roles;
 
-	public UserInfoResponse(Long id, String username, String email, List<String> roles) {
+	public UserInfoResponse(Long id, String username, String email,double balance, List<String> roles) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
+		this.balance = balance;
 		this.roles = roles;
 	}
 
@@ -31,13 +35,14 @@ public class UserInfoResponse {
 		this.email = email;
 	}
 
+	public double getBalance() {
+		return balance;
+	}
+
 	public String getUsername() {
 		return username;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
 
 	public List<String> getRoles() {
 		return roles;

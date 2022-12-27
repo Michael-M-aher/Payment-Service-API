@@ -1,4 +1,4 @@
-package com.m_code.Fawry.Auth.advice;
+package com.m_code.Fawry.Auth.errors;
 
 import java.util.Date;
 
