@@ -1,4 +1,4 @@
-package com.m_code.Fawry.Auth.security.services;
+package com.m_code.Fawry.Auth.services;
 
 import java.util.Collection;
 import java.util.List;
@@ -28,7 +28,7 @@ public class UserDetailsImpl implements UserDetails {
 
   private Collection<? extends GrantedAuthority> authorities;
 
-  public UserDetailsImpl(Long id, String username, String email, String password,double balance,
+  public UserDetailsImpl(Long id, String username, String email, String password, double balance,
       Collection<? extends GrantedAuthority> authorities) {
     this.id = id;
     this.username = username;
@@ -44,8 +44,8 @@ public class UserDetailsImpl implements UserDetails {
         .collect(Collectors.toList());
 
     return new UserDetailsImpl(
-        user.getId(), 
-        user.getUsername(), 
+        user.getId(),
+        user.getUsername(),
         user.getEmail(),
         user.getPassword(),
         user.getBalance(),
@@ -66,7 +66,7 @@ public class UserDetailsImpl implements UserDetails {
   }
 
   public double getBalance() {
-      return balance;
+    return balance;
   }
 
   @Override
@@ -78,8 +78,6 @@ public class UserDetailsImpl implements UserDetails {
   public String getUsername() {
     return username;
   }
-
-
 
   @Override
   public boolean isAccountNonExpired() {

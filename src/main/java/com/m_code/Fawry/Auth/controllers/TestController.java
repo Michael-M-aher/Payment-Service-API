@@ -3,8 +3,9 @@ package com.m_code.Fawry.Auth.controllers;
 import com.m_code.Fawry.Auth.payload.response.UserInfoResponse;
 import com.m_code.Fawry.Auth.repository.UserRepository;
 import com.m_code.Fawry.Auth.security.jwt.JwtUtils;
-import com.m_code.Fawry.Auth.security.services.BalanceService;
-import com.m_code.Fawry.Auth.security.services.UserDetailsImpl;
+import com.m_code.Fawry.Payment.services.BalanceService;
+import com.m_code.Fawry.Auth.services.UserDetailsImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/test")
 public class TestController {

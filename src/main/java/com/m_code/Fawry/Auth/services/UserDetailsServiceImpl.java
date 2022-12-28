@@ -1,4 +1,4 @@
-package com.m_code.Fawry.Auth.security.services;
+package com.m_code.Fawry.Auth.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

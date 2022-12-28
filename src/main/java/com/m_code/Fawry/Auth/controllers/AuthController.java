@@ -36,9 +36,8 @@ import com.m_code.Fawry.Auth.repository.RoleRepository;
 import com.m_code.Fawry.Auth.repository.UserRepository;
 import com.m_code.Fawry.Auth.security.jwt.JwtUtils;
 import com.m_code.Fawry.Auth.security.services.RefreshTokenService;
-import com.m_code.Fawry.Auth.security.services.UserDetailsImpl;
+import com.m_code.Fawry.Auth.services.UserDetailsImpl;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
