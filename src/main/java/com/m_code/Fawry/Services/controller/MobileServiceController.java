@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.m_code.Fawry.Auth.security.jwt.JwtUtils;
+import com.m_code.Fawry.Payment.CreditCardDto;
 import com.m_code.Fawry.Payment.services.PaymentService;
 import com.m_code.Fawry.Services.MobileServices.MobileRechargeForm;
 
 @RestController
 @RequestMapping("/api/mobile")
 public class MobileServiceController {
+
     @Autowired
     JwtUtils jwtUtils;
 
@@ -24,11 +26,20 @@ public class MobileServiceController {
     PaymentService payservice;
 
     @PostMapping("/{name:[a-zA-Z &+-]*}/pay/balance")
-    public ResponseEntity<?> pay(@CookieValue("${com.m_code.Fawry.jwtCookieName}") String jwtToken,
+    public ResponseEntity<?> payBalance(@CookieValue("${com.m_code.Fawry.jwtCookieName}") String jwtToken,
             @PathVariable(name = "name") String name, @RequestBody MobileRechargeForm form) {
         String username = jwtUtils.getUserNameFromJwtToken(jwtToken);
+        return payservice.payBalance(username, name, form);
+    }
+
+    @PostMapping("/{name:[a-zA-Z &+-]*}/pay/creditcard")
+    public ResponseEntity<?> payCreditCard(
+            @PathVariable(name = "name") String name, @RequestBody MobileRechargeForm form,
+            @RequestBody CreditCardDto credit) {
         System.out.println(form.getMobilenumber());
-        return payservice.pay(username, name, form);
+        System.out.println(credit.getCardnumber());
+        System.out.println(credit.getCardholdername());
+        return payservice.payCreditCard(credit, name, form);
     }
 
     @GetMapping("/{name:[a-zA-Z &+-]*}/getbill")
