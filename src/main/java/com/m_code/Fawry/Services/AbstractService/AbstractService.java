@@ -1,8 +1,8 @@
 package com.m_code.Fawry.Services.AbstractService;
 
 import java.util.ArrayList;
-import com.m_code.Fawry.Discount.Discount;
-import com.m_code.Fawry.Discount.DiscountType;
+import com.m_code.Fawry.Discount.models.Discount;
+import com.m_code.Fawry.Discount.models.DiscountType;
 
 //Abstract Factory Class
 public abstract class AbstractService {

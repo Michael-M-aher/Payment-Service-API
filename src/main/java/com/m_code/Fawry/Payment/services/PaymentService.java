@@ -46,7 +46,8 @@ public class PaymentService {
             float bill = service.getBill(dts.userFirstTransaction(username));
             if (Bs.decreaseBalance(username, bill)) {
                 service.pay();
-                dts.addTransaction(new Transaction(dts.getId(), TransactionType.PaymentTransaction,username, service.getServiceProviderName(), bill));
+                dts.addTransaction(new Transaction(dts.getTransactionId(), TransactionType.PaymentTransaction, username,
+                        service.getServiceProviderName(), bill));
                 return ResponseEntity.ok("Payment Successful" + bill);
             } else {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Not enough balance");
@@ -65,7 +66,8 @@ public class PaymentService {
             float bill = service.getBill(dts.userFirstTransaction(username));
             if (credit.decreaseBalance(bill)) {
                 service.pay();
-                dts.addTransaction(new Transaction(dts.getId(), TransactionType.PaymentTransaction,username, service.getServiceProviderName(), bill));
+                dts.addTransaction(new Transaction(dts.getTransactionId(), TransactionType.PaymentTransaction, username,
+                        service.getServiceProviderName(), bill));
                 return ResponseEntity.ok("Payment Successful " + bill + "$");
             } else {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Not enough balance");
@@ -83,7 +85,8 @@ public class PaymentService {
             float bill = service.getBill(dts.userFirstTransaction(username));
             if (service.getCOD()) {
                 service.pay();
-                dts.addTransaction(new Transaction(dts.getId(), TransactionType.PaymentTransaction,username, service.getServiceProviderName(), bill));
+                dts.addTransaction(new Transaction(dts.getTransactionId(), TransactionType.PaymentTransaction, username,
+                        service.getServiceProviderName(), bill));
                 return ResponseEntity.ok("You should pay " + bill + "$ when your order arrives");
             } else {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Service doesn't allow cod");

@@ -14,7 +14,8 @@ import com.m_code.Fawry.Services.MobileServices.*;
 //Singelton
 @Component
 public class DataStoreRuntime {
-    private int id = 0;
+    private int transactionId = 0;
+    private int discountId = 0;
     private ArrayList<AbstractService> services = new ArrayList<AbstractService>();
     private ArrayList<Transaction> refundServices = new ArrayList<Transaction>();
     private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
@@ -71,8 +72,12 @@ public class DataStoreRuntime {
         refundServices.remove(transaction);
     }
 
-    public int getId() {
-        return id++;
+    public int getTransactionId() {
+        return transactionId++;
+    }
+
+    public int getDiscountId() {
+        return discountId++;
     }
 
     private DataStoreRuntime() {

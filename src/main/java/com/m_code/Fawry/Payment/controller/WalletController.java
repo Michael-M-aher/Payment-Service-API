@@ -44,7 +44,8 @@ public class WalletController {
 
         if (walletPaymentDto.creditcard.decreaseBalance(walletPaymentDto.amount)) {
             Bs.addBalance(username, walletPaymentDto.amount);
-            dts.addTransaction(new Transaction(dts.getId(), TransactionType.AddToWalletTransaction,username, "Wallet", walletPaymentDto.amount));
+            dts.addTransaction(new Transaction(dts.getTransactionId(), TransactionType.AddToWalletTransaction, username,
+                    "Wallet", walletPaymentDto.amount));
             return ResponseEntity.ok("Amount added");
 
         } else {

@@ -1,10 +1,16 @@
-package com.m_code.Fawry.Discount;
+package com.m_code.Fawry.Discount.models;
 
 public class Discount {
     private float DiscountAmount;
     private DiscountType discountType;
+    private int id;
 
-    public Discount(float discountAmount, DiscountType discountType) {
+    public int getId() {
+        return id;
+    }
+
+    public Discount(int id, float discountAmount, DiscountType discountType) {
+        this.id = id;
         this.DiscountAmount = discountAmount;
         this.discountType = discountType;
     }

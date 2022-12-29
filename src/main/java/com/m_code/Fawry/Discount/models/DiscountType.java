@@ -1,4 +1,4 @@
-package com.m_code.Fawry.Discount;
+package com.m_code.Fawry.Discount.models;
 
 public enum DiscountType {
     Overall,

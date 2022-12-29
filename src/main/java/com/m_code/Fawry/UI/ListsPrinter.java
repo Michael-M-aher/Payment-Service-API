@@ -2,8 +2,8 @@ package com.m_code.Fawry.UI;
 
 import java.util.ArrayList;
 
-import com.m_code.Fawry.Discount.Discount;
-import com.m_code.Fawry.Discount.DiscountType;
+import com.m_code.Fawry.Discount.models.Discount;
+import com.m_code.Fawry.Discount.models.DiscountType;
 import com.m_code.Fawry.Transaction.models.Transaction;
 import com.m_code.Fawry.Services.AbstractService.AbstractService;
 
