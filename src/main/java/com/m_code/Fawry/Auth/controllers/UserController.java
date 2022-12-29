@@ -1,9 +1,7 @@
 package com.m_code.Fawry.Auth.controllers;
 
 import com.m_code.Fawry.Auth.payload.response.UserInfoResponse;
-import com.m_code.Fawry.Auth.repository.UserRepository;
 import com.m_code.Fawry.Auth.security.jwt.JwtUtils;
-import com.m_code.Fawry.Payment.services.WalletService;
 import com.m_code.Fawry.Auth.services.UserDetailsImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +14,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/test")
-public class TestController {
+@RequestMapping("/api")
+public class UserController {
 
   @Autowired
   JwtUtils jwtUtils;
@@ -25,18 +23,7 @@ public class TestController {
   @Autowired
   UserDetailsService userDetailsService;
 
-  @Autowired
-  UserRepository userRepository;
-
-  @Autowired
-  WalletService balanceService;
-
-  @GetMapping("/all")
-  public String allAccess() {
-    return "Public Content.";
-  }
-
-  @GetMapping("/user")
+  @GetMapping("/account")
   @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
   public ResponseEntity<?> userAccess(@CookieValue("${com.m_code.Fawry.jwtCookieName}") String jwtToken) {
     String username = jwtUtils.getUserNameFromJwtToken(jwtToken);
@@ -53,9 +40,4 @@ public class TestController {
             roles));
   }
 
-  @GetMapping("/admin")
-  @PreAuthorize("hasRole('ADMIN')")
-  public String adminAccess() {
-    return "Admin Board.";
-  }
 }

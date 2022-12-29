@@ -17,15 +17,15 @@ public class DataStoreRuntime {
     private int transactionId = 0;
     private int discountId = 0;
     private ArrayList<AbstractService> services = new ArrayList<AbstractService>();
-    private ArrayList<Transaction> refundServices = new ArrayList<Transaction>();
+    private ArrayList<Transaction> refundRequests = new ArrayList<Transaction>();
     private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 
     public ArrayList<Transaction> getTransactions() {
         return transactions;
     }
 
-    public ArrayList<Transaction> getRefundServices() {
-        return refundServices;
+    public ArrayList<Transaction> getRefundRequests() {
+        return refundRequests;
     }
 
     public ArrayList<AbstractService> getServices() {
@@ -61,7 +61,7 @@ public class DataStoreRuntime {
     }
 
     public void addRefund(Transaction transaction) {
-        refundServices.add(transaction);
+        refundRequests.add(transaction);
     }
 
     public void removeTransaction(Transaction transaction) {
@@ -69,7 +69,7 @@ public class DataStoreRuntime {
     }
 
     public void removeRefund(Transaction transaction) {
-        refundServices.remove(transaction);
+        refundRequests.remove(transaction);
     }
 
     public int getTransactionId() {
