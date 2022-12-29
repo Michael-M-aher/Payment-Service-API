@@ -12,7 +12,7 @@ public abstract class AbstractDonationsService extends AbstractService {
 
     @Override
     protected ServiceForm creatServiceForm() {
-        return new DonationsForm(getDonationAccount());
+        return new DonationsForm();
     }
 
     @Override

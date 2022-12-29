@@ -65,12 +65,29 @@ public class PaymentService {
             if (credit.decreaseBalance(bill)) {
                 service.pay();
                 dts.addTransaction(new Transaction(username, service, bill));
-                return ResponseEntity.ok("Payment Successful" + bill);
+                return ResponseEntity.ok("Payment Successful " + bill + "$");
             } else {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Not enough balance");
             }
         }
+    }
 
+    public ResponseEntity<?> paycod(String username, String name,
+            ServiceForm serviceForm) {
+        AbstractService service = getServiceByName(name);
+        if (service == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No Service found with this name");
+        } else {
+            service.setServiceForm(serviceForm);
+            float bill = service.getBill();
+            if (service.getCOD()) {
+                service.pay();
+                dts.addTransaction(new Transaction(username, service, bill));
+                return ResponseEntity.ok("You should pay " + bill + "$ when your order arrives");
+            } else {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Service doesn't allow cod");
+            }
+        }
     }
 
     public ResponseEntity<?> getBill(String name, ServiceForm serviceForm) {

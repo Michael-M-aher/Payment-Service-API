@@ -8,9 +8,9 @@ public class DonationsHandler extends ServiceHandler {
     @Override
     public void pay(String serviceRequest, ServiceForm serviceForm) {
         System.out.println("You have paid the bill for " + serviceRequest);
+        String donationAcc = serviceRequest.substring(21, serviceRequest.lastIndexOf("/"));
         System.out
-                .println("You have paid for the donation service: "
-                        + ((DonationsForm) serviceForm).getDonationaccount());
+                .println("You have paid for the donation service: " + donationAcc);
     }
 
     public float getBill(String serviceRequest, ServiceForm serviceForm) {

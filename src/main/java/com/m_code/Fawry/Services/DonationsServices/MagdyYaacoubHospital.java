@@ -29,7 +29,7 @@ public class MagdyYaacoubHospital extends AbstractDonationsService {
 
     @Override
     protected Boolean allowCod() {
-        return false;
+        return true;
     }
 
 }

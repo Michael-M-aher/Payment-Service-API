@@ -41,7 +41,7 @@ public abstract class AbstractService {
         return discounts;
     }
 
-    protected Boolean getCOD() {
+    public Boolean getCOD() {
         return COD;
     }
 

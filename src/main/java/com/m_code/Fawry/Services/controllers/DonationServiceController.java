@@ -49,6 +49,16 @@ public class DonationServiceController {
         }
     }
 
+    @PostMapping("/{name:[a-zA-Z0-9 &+-]*}/pay/cod")
+    public ResponseEntity<?> paycod(@CookieValue("${com.m_code.Fawry.jwtCookieName}") String jwtToken,
+            @PathVariable(name = "name") String name, @RequestBody DonationsForm form) {
+        String username = jwtUtils.getUserNameFromJwtToken(jwtToken);
+        if (form.validate()) {
+            return payservice.paycod(username, name, form);
+        }
+        return ResponseEntity.badRequest().body("Invalid Form");
+    }
+
     @GetMapping("/{name:[a-zA-Z &+-]*}/getbill")
     public ResponseEntity<?> getBill(@PathVariable(name = "name") String name, @RequestBody DonationsForm form) {
         if (form.validate()) {

@@ -49,6 +49,16 @@ public class LandlineServiceController {
         return ResponseEntity.badRequest().body("Invalid Form");
     }
 
+    @PostMapping("/{name:[a-zA-Z &+-]*}/pay/cod")
+    public ResponseEntity<?> paycod(@CookieValue("${com.m_code.Fawry.jwtCookieName}") String jwtToken,
+            @PathVariable(name = "name") String name, @RequestBody LandlineForm form) {
+        String username = jwtUtils.getUserNameFromJwtToken(jwtToken);
+        if (form.validate()) {
+            return payservice.paycod(username, name, form);
+        }
+        return ResponseEntity.badRequest().body("Invalid Form");
+    }
+
     @GetMapping("/{name:[a-zA-Z &+-]*}/getbill")
     public ResponseEntity<?> getBill(@PathVariable(name = "name") String name, @RequestBody LandlineForm form) {
         if (form.validate()) {
