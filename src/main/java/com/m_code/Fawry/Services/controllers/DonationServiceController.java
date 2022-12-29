@@ -1,6 +1,6 @@
-package com.m_code.Fawry.Services.controller;
+package com.m_code.Fawry.Services.controllers;
 
-import com.m_code.Fawry.Payment.models.MobilePaymentDto;
+import com.m_code.Fawry.Payment.models.DonationsPaymentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.m_code.Fawry.Auth.security.jwt.JwtUtils;
 import com.m_code.Fawry.Payment.services.PaymentService;
-import com.m_code.Fawry.Services.MobileServices.MobileRechargeForm;
+import com.m_code.Fawry.Services.DonationsServices.DonationsForm;
 
 @RestController
-@RequestMapping("/api/mobile")
-public class MobileServiceController {
+@RequestMapping("/api/donations")
+public class DonationServiceController {
 
     @Autowired
     JwtUtils jwtUtils;
@@ -26,8 +26,8 @@ public class MobileServiceController {
     PaymentService payservice;
 
     @PostMapping("/{name:[a-zA-Z &+-]*}/pay/balance")
-    public ResponseEntity<?> payBalance(@CookieValue("${com.m_code.Fawry.jwtCookieName}") String jwtToken,
-            @PathVariable(name = "name") String name, @RequestBody MobileRechargeForm form) {
+    public ResponseEntity<?> pay(@CookieValue("${com.m_code.Fawry.jwtCookieName}") String jwtToken,
+            @PathVariable(name = "name") String name, @RequestBody DonationsForm form) {
         String username = jwtUtils.getUserNameFromJwtToken(jwtToken);
         if (form.validate()) {
             return payservice.payBalance(username, name, form);
@@ -37,23 +37,24 @@ public class MobileServiceController {
 
     @PostMapping("/{name:[a-zA-Z &+-]*}/pay/creditcard")
     public ResponseEntity<?> payCreditCard(@CookieValue("${com.m_code.Fawry.jwtCookieName}") String jwtToken,
-            @PathVariable(name = "name") String name, @RequestBody MobilePaymentDto paymentdto) {
+            @PathVariable(name = "name") String name, @RequestBody DonationsPaymentDto paymentdto) {
         String username = jwtUtils.getUserNameFromJwtToken(jwtToken);
         if (paymentdto.form.validate()) {
-
-            if (paymentdto.credit.validate()) {
-                return payservice.payCreditCard(username, paymentdto.credit, name, paymentdto.form);
+            if (paymentdto.creditcard.validate()) {
+                return payservice.payCreditCard(username, paymentdto.creditcard, name, paymentdto.form);
             }
             return ResponseEntity.badRequest().body("Invalid Credit Card");
+        } else {
+            return ResponseEntity.badRequest().body("Invalid Form");
         }
-        return ResponseEntity.badRequest().body("Invalid Form");
     }
 
     @GetMapping("/{name:[a-zA-Z &+-]*}/getbill")
-    public ResponseEntity<?> getBill(@PathVariable(name = "name") String name, @RequestBody MobileRechargeForm form) {
+    public ResponseEntity<?> getBill(@PathVariable(name = "name") String name, @RequestBody DonationsForm form) {
         if (form.validate()) {
             return payservice.getBill(name, form);
         }
         return ResponseEntity.badRequest().body("Invalid Form");
     }
+
 }

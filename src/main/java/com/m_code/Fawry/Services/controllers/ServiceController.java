@@ -1,4 +1,4 @@
-package com.m_code.Fawry.Services.controller;
+package com.m_code.Fawry.Services.controllers;
 
 import java.util.ArrayList;
 

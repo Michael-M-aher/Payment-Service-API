@@ -32,7 +32,7 @@ public class WalletController {
             @RequestBody WalletPaymentDto walletPaymentDto) {
         String username = jwtUtils.getUserNameFromJwtToken(jwtToken);
 
-        if (!walletPaymentDto.credit.validate()) {
+        if (!walletPaymentDto.creditcard.validate()) {
             return ResponseEntity.badRequest().body("Invalid Credit Card");
         }
 
@@ -40,7 +40,7 @@ public class WalletController {
             return ResponseEntity.ok("Invalid negative amount");
         }
 
-        if (walletPaymentDto.credit.decreaseBalance(walletPaymentDto.amount)) {
+        if (walletPaymentDto.creditcard.decreaseBalance(walletPaymentDto.amount)) {
             Bs.addBalance(username, walletPaymentDto.amount);
             return ResponseEntity.ok("Amount added");
 

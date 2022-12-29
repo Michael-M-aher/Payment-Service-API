@@ -4,5 +4,5 @@ import com.m_code.Fawry.Services.DonationsServices.DonationsForm;
 
 public class DonationsPaymentDto {
     public DonationsForm form;
-    public CreditCardDto credit;
+    public CreditCardDto creditcard;
 }
