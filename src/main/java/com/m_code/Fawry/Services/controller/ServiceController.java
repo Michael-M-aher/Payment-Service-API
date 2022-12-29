@@ -19,11 +19,6 @@ public class ServiceController {
     @Autowired
     DataStoreRuntime dts;
 
-    @RequestMapping("/hello")
-    public String sayHello() {
-        return "Hello ";
-    }
-
     @GetMapping("/search")
     public ResponseEntity<ArrayList<String>> search(@RequestParam(name = "name") String name) {
         ArrayList<String> filteredBySearch = new ArrayList<String>();

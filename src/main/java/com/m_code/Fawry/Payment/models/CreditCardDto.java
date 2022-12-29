@@ -1,4 +1,4 @@
-package com.m_code.Fawry.Payment;
+package com.m_code.Fawry.Payment.models;
 
 public class CreditCardDto {
     String cardnumber;
@@ -17,6 +17,10 @@ public class CreditCardDto {
         } else {
             return false;
         }
+    }
+
+    public Boolean validate() {
+        return (cardnumber != null && cardholdername != null && expirationdate != null && cvv != null);
     }
 
     public String getCardnumber() {

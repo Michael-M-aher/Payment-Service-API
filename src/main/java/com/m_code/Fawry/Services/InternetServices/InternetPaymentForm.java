@@ -6,7 +6,6 @@ import com.m_code.Fawry.Services.AbstractService.ServiceForm;
 public class InternetPaymentForm extends ServiceForm {
 
     private String landlinenumber;
-    private float billamount;
 
     public String getLandlinenumber() {
         return landlinenumber;
@@ -16,12 +15,10 @@ public class InternetPaymentForm extends ServiceForm {
         landlinenumber = landLineNumber;
     }
 
-    public float getBillamount() {
-        return billamount;
-    }
+    @Override
+    public Boolean validate() {
 
-    public void setBillamount(float billAmount) {
-        billamount = billAmount;
+        return (landlinenumber != null);
     }
 
 }

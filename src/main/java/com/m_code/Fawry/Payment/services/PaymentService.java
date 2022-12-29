@@ -7,7 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.m_code.Fawry.Auth.security.jwt.JwtUtils;
-import com.m_code.Fawry.Payment.CreditCardDto;
+import com.m_code.Fawry.Payment.models.Transaction;
+import com.m_code.Fawry.Payment.models.CreditCardDto;
 import com.m_code.Fawry.RuntimeData.DataStoreRuntime;
 import com.m_code.Fawry.Services.AbstractService.AbstractService;
 import com.m_code.Fawry.Services.AbstractService.ServiceForm;
@@ -16,7 +17,7 @@ import com.m_code.Fawry.Services.AbstractService.ServiceForm;
 public class PaymentService {
 
     @Autowired
-    BalanceService Bs;
+    WalletService Bs;
 
     @Autowired
     JwtUtils jwtUtils;
@@ -44,6 +45,7 @@ public class PaymentService {
             float bill = service.getBill();
             if (Bs.decreaseBalance(username, bill)) {
                 service.pay();
+                dts.addTransaction(new Transaction(username, service, bill));
                 return ResponseEntity.ok("Payment Successful" + bill);
             } else {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Not enough balance");
@@ -52,7 +54,8 @@ public class PaymentService {
 
     }
 
-    public ResponseEntity<?> payCreditCard(CreditCardDto credit, String name, ServiceForm serviceForm) {
+    public ResponseEntity<?> payCreditCard(String username, CreditCardDto credit, String name,
+            ServiceForm serviceForm) {
         AbstractService service = getServiceByName(name);
         if (service == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No Service found with this name");
@@ -61,6 +64,7 @@ public class PaymentService {
             float bill = service.getBill();
             if (credit.decreaseBalance(bill)) {
                 service.pay();
+                dts.addTransaction(new Transaction(username, service, bill));
                 return ResponseEntity.ok("Payment Successful" + bill);
             } else {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Not enough balance");

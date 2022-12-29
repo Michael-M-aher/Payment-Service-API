@@ -14,4 +14,9 @@ public class LandlineForm extends ServiceForm {
         landlinenumber = landLineNumber;
     }
 
+    @Override
+    public Boolean validate() {
+        return (landlinenumber != null);
+    }
+
 }

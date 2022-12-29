@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.m_code.Fawry.Discount.Discount;
 import com.m_code.Fawry.Discount.DiscountType;
-import com.m_code.Fawry.Payment.Transaction;
+import com.m_code.Fawry.Payment.models.Transaction;
 import com.m_code.Fawry.Services.AbstractService.AbstractService;
 
 public class ListsPrinter {

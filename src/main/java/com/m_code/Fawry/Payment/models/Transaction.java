@@ -1,21 +1,20 @@
-package com.m_code.Fawry.Payment;
+package com.m_code.Fawry.Payment.models;
 
 import com.m_code.Fawry.Services.AbstractService.AbstractService;
 
 public class Transaction {
     private String username;
-
-    public String getUser() {
-        return username;
-    }
-
     private AbstractService service;
     private float amount;
 
-    public Transaction(AbstractService service, float amount) {
-        // this.user = User.getInstance();
+    public Transaction(String username, AbstractService service, float amount) {
+        this.username = username;
         this.service = service;
         this.amount = amount;
+    }
+
+    public String getUser() {
+        return username;
     }
 
     public AbstractService getService() {

@@ -3,7 +3,7 @@ package com.m_code.Fawry.Auth.controllers;
 import com.m_code.Fawry.Auth.payload.response.UserInfoResponse;
 import com.m_code.Fawry.Auth.repository.UserRepository;
 import com.m_code.Fawry.Auth.security.jwt.JwtUtils;
-import com.m_code.Fawry.Payment.services.BalanceService;
+import com.m_code.Fawry.Payment.services.WalletService;
 import com.m_code.Fawry.Auth.services.UserDetailsImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class TestController {
   UserRepository userRepository;
 
   @Autowired
-  BalanceService balanceService;
+  WalletService balanceService;
 
   @GetMapping("/all")
   public String allAccess() {

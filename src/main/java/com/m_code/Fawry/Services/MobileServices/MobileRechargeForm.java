@@ -23,4 +23,9 @@ public class MobileRechargeForm extends ServiceForm {
         this.rechargeamount = amount;
     }
 
+    @Override
+    public Boolean validate() {
+        return (mobilenumber != null && rechargeamount != null);
+    }
+
 }

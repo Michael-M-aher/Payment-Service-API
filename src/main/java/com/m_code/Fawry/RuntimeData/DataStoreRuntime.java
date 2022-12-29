@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
-import com.m_code.Fawry.Payment.Transaction;
+import com.m_code.Fawry.Payment.models.Transaction;
 import com.m_code.Fawry.Services.AbstractService.AbstractService;
 import com.m_code.Fawry.Services.DonationsServices.*;
 import com.m_code.Fawry.Services.InternetServices.*;

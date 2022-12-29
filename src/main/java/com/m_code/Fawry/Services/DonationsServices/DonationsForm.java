@@ -19,4 +19,9 @@ public class DonationsForm extends ServiceForm {
         return donationaccount;
     }
 
+    @Override
+    public Boolean validate() {
+        return (donationaccount != null && donationamount != null);
+    }
+
 }
