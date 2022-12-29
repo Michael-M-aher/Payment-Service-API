@@ -61,19 +61,15 @@ public abstract class AbstractService {
         serviceProviderPayLogic();
     }
 
-    public final float getBill() {
+    public final float getBill(Boolean firstTime) {
         float billAmount = serviceProviderGetBillLogic();
-        if (applyDiscount(billAmount) != billAmount) {
-            billAmount = applyDiscount(billAmount);
-        }
-        return billAmount;
+        return applyDiscount(firstTime, billAmount);
     }
 
-    private float applyDiscount(float amount) {
+    private float applyDiscount(Boolean firstTime,float amount) {
         float discountAmount = 0;
         for (Discount discount : discounts) {
-            if (discount.getDiscountType().equals(DiscountType.Overall)) {
-                // && !User.getInstance().getTransactions().isEmpty()) {
+            if (discount.getDiscountType().equals(DiscountType.Overall) && !firstTime) {
                 continue;
             }
             discountAmount += discount.getDiscount();

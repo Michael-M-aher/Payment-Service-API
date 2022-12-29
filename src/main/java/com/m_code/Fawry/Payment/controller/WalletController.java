@@ -1,5 +1,7 @@
 package com.m_code.Fawry.Payment.controller;
 
+import com.m_code.Fawry.Transaction.models.Transaction;
+import com.m_code.Fawry.Transaction.models.TransactionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -42,6 +44,7 @@ public class WalletController {
 
         if (walletPaymentDto.creditcard.decreaseBalance(walletPaymentDto.amount)) {
             Bs.addBalance(username, walletPaymentDto.amount);
+            dts.addTransaction(new Transaction(dts.getId(), TransactionType.AddToWalletTransaction,username, "Wallet", walletPaymentDto.amount));
             return ResponseEntity.ok("Amount added");
 
         } else {

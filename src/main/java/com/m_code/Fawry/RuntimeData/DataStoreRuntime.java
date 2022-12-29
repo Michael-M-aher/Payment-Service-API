@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
-import com.m_code.Fawry.Payment.models.Transaction;
+import com.m_code.Fawry.Transaction.models.Transaction;
 import com.m_code.Fawry.Services.AbstractService.AbstractService;
 import com.m_code.Fawry.Services.DonationsServices.*;
 import com.m_code.Fawry.Services.InternetServices.*;
@@ -14,6 +14,7 @@ import com.m_code.Fawry.Services.MobileServices.*;
 //Singelton
 @Component
 public class DataStoreRuntime {
+    private int id = 0;
     private ArrayList<AbstractService> services = new ArrayList<AbstractService>();
     private ArrayList<Transaction> refundServices = new ArrayList<Transaction>();
     private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
@@ -40,6 +41,20 @@ public class DataStoreRuntime {
         return servicesNames;
     }
 
+    public ArrayList<Transaction> getUserTransactions(String username) {
+        ArrayList<Transaction> userTransactions = new ArrayList<Transaction>();
+        for (Transaction transaction : transactions) {
+            if (transaction.getUsername().equals(username)) {
+                userTransactions.add(transaction);
+            }
+        }
+        return userTransactions;
+    }
+
+    public Boolean userFirstTransaction(String username) {
+        return (getUserTransactions(username).size() == 0);
+    }
+
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
     }
@@ -54,6 +69,10 @@ public class DataStoreRuntime {
 
     public void removeRefund(Transaction transaction) {
         refundServices.remove(transaction);
+    }
+
+    public int getId() {
+        return id++;
     }
 
     private DataStoreRuntime() {

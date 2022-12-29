@@ -60,9 +60,10 @@ public class MobileServiceController {
     }
 
     @GetMapping("/{name:[a-zA-Z &+-]*}/getbill")
-    public ResponseEntity<?> getBill(@PathVariable(name = "name") String name, @RequestBody MobileRechargeForm form) {
+    public ResponseEntity<?> getBill(@CookieValue("${com.m_code.Fawry.jwtCookieName}") String jwtToken,@PathVariable(name = "name") String name, @RequestBody MobileRechargeForm form) {
+        String username = jwtUtils.getUserNameFromJwtToken(jwtToken);
         if (form.validate()) {
-            return payservice.getBill(name, form);
+            return payservice.getBill(username, name, form);
         }
         return ResponseEntity.badRequest().body("Invalid Form");
     }

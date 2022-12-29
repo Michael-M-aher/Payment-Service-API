@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.m_code.Fawry.Discount.Discount;
 import com.m_code.Fawry.Discount.DiscountType;
-import com.m_code.Fawry.Payment.models.Transaction;
+import com.m_code.Fawry.Transaction.models.Transaction;
 import com.m_code.Fawry.Services.AbstractService.AbstractService;
 
 public class ListsPrinter {
@@ -35,21 +35,21 @@ public class ListsPrinter {
         if (transactions.size() == 0) {
             System.out.println("No transactions yet");
         }
-        for (int i = 0; i < transactions.size(); i++) {
-            System.out.println(i + 1 + ". " + transactions.get(i).getService().getServiceProviderName() + " "
-                    + transactions.get(i).getAmount() + "$");
-        }
+//        for (int i = 0; i < transactions.size(); i++) {
+//            System.out.println(i + 1 + ". " + transactions.get(i).getServiceProviderName().getServiceProviderName() + " "
+//                    + transactions.get(i).getAmount() + "$");
+//        }
     }
 
     public static void printRefundTransactions(ArrayList<Transaction> refundTransactions) {
         if (refundTransactions.size() == 0) {
             System.out.println("No Refund requests yet");
         }
-        for (int i = 0; i < refundTransactions.size(); i++) {
-            System.out.println(i + 1 + ". " + refundTransactions.get(i).getUser() + " "
-                    + refundTransactions.get(i).getService().getServiceProviderName() + " "
-                    + refundTransactions.get(i).getAmount());
-        }
+//        for (int i = 0; i < refundTransactions.size(); i++) {
+//            System.out.println(i + 1 + ". " + refundTransactions.get(i).getUser() + " "
+//                    + refundTransactions.get(i).getServiceProviderName().getServiceProviderName() + " "
+//                    + refundTransactions.get(i).getAmount());
+//        }
     }
 
 }

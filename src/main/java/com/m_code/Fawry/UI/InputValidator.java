@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import com.m_code.Fawry.Discount.Discount;
 import com.m_code.Fawry.Discount.DiscountType;
-import com.m_code.Fawry.Payment.models.Transaction;
+import com.m_code.Fawry.Transaction.models.Transaction;
 import com.m_code.Fawry.Services.AbstractService.AbstractService;
 
 public class InputValidator {
@@ -76,21 +76,21 @@ public class InputValidator {
 
     public static int validateInputRefundTransactions(ArrayList<Transaction> refundTransactions) {
         Scanner sc = new Scanner(System.in);
-        for (int i = 0; i < refundTransactions.size(); i++) {
-            System.out.println(i + 1 + ". " + refundTransactions.get(i).getUser() + " "
-                    + refundTransactions.get(i).getService().getServiceProviderName() + " "
-                    + refundTransactions.get(i).getAmount());
-        }
+//        for (int i = 0; i < refundTransactions.size(); i++) {
+//            System.out.println(i + 1 + ". " + refundTransactions.get(i).getUser() + " "
+//                    + refundTransactions.get(i).getServiceProviderName().getServiceProviderName() + " "
+//                    + refundTransactions.get(i).getAmount());
+//        }
         System.out.println(refundTransactions.size() + 1 + ". " + "Go Back");
         System.out.println("Select a Refund request:");
         int refundIndex = sc.nextInt();
         while (refundIndex > refundTransactions.size() + 1 || refundIndex <= 0) {
             System.out.println("Invalid option");
-            for (int i = 0; i < refundTransactions.size(); i++) {
-                System.out.println(i + 1 + ". " + refundTransactions.get(i).getUser() + " "
-                        + refundTransactions.get(i).getService().getServiceProviderName() + " "
-                        + refundTransactions.get(i).getAmount());
-            }
+//            for (int i = 0; i < refundTransactions.size(); i++) {
+//                System.out.println(i + 1 + ". " + refundTransactions.get(i).getUser() + " "
+//                        + refundTransactions.get(i).getServiceProviderName().getServiceProviderName() + " "
+//                        + refundTransactions.get(i).getAmount());
+//            }
             System.out.println(refundTransactions.size() + 1 + ". " + "Go Back");
             System.out.println("Select a Refund request:");
             refundIndex = sc.nextInt();
