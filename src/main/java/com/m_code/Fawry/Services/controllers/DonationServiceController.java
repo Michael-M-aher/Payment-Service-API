@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.m_code.Fawry.Auth.security.jwt.JwtUtils;
 import com.m_code.Fawry.Payment.services.PaymentService;
-import com.m_code.Fawry.Services.DonationsServices.DonationsForm;
 
 @RestController
 @RequestMapping("/api/donations")
@@ -25,17 +24,17 @@ public class DonationServiceController {
     @Autowired
     PaymentService payservice;
 
-    @PostMapping("/{name:[a-zA-Z &+-]*}/pay/balance")
+    @PostMapping("/{name:[a-zA-Z0-9 &+-]*}/pay/balance")
     public ResponseEntity<?> pay(@CookieValue("${com.m_code.Fawry.jwtCookieName}") String jwtToken,
-            @PathVariable(name = "name") String name, @RequestBody DonationsForm form) {
+            @PathVariable(name = "name") String name, @RequestBody DonationsPaymentDto paymentdto) {
         String username = jwtUtils.getUserNameFromJwtToken(jwtToken);
-        if (form.validate()) {
-            return payservice.payBalance(username, name, form);
+        if (paymentdto.form.validate()) {
+            return payservice.payBalance(username, name, paymentdto.form);
         }
         return ResponseEntity.badRequest().body("Invalid Form");
     }
 
-    @PostMapping("/{name:[a-zA-Z &+-]*}/pay/creditcard")
+    @PostMapping("/{name:[a-zA-Z0-9 &+-]*}/pay/creditcard")
     public ResponseEntity<?> payCreditCard(@CookieValue("${com.m_code.Fawry.jwtCookieName}") String jwtToken,
             @PathVariable(name = "name") String name, @RequestBody DonationsPaymentDto paymentdto) {
         String username = jwtUtils.getUserNameFromJwtToken(jwtToken);
@@ -51,19 +50,20 @@ public class DonationServiceController {
 
     @PostMapping("/{name:[a-zA-Z0-9 &+-]*}/pay/cod")
     public ResponseEntity<?> paycod(@CookieValue("${com.m_code.Fawry.jwtCookieName}") String jwtToken,
-            @PathVariable(name = "name") String name, @RequestBody DonationsForm form) {
+            @PathVariable(name = "name") String name, @RequestBody DonationsPaymentDto paymentdto) {
         String username = jwtUtils.getUserNameFromJwtToken(jwtToken);
-        if (form.validate()) {
-            return payservice.paycod(username, name, form);
+        if (paymentdto.form.validate()) {
+            return payservice.paycod(username, name, paymentdto.form);
         }
         return ResponseEntity.badRequest().body("Invalid Form");
     }
 
-    @GetMapping("/{name:[a-zA-Z &+-]*}/getbill")
-    public ResponseEntity<?> getBill(@CookieValue("${com.m_code.Fawry.jwtCookieName}") String jwtToken,@PathVariable(name = "name") String name, @RequestBody DonationsForm form) {
+    @GetMapping("/{name:[a-zA-Z0-9 &+-]*}/getbill")
+    public ResponseEntity<?> getBill(@CookieValue("${com.m_code.Fawry.jwtCookieName}") String jwtToken,
+            @PathVariable(name = "name") String name, @RequestBody DonationsPaymentDto paymentdto) {
         String username = jwtUtils.getUserNameFromJwtToken(jwtToken);
-        if (form.validate()) {
-            return payservice.getBill(username, name, form);
+        if (paymentdto.form.validate()) {
+            return payservice.getBill(username, name, paymentdto.form);
         }
         return ResponseEntity.badRequest().body("Invalid Form");
     }

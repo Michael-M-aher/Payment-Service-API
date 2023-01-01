@@ -81,16 +81,21 @@ public class DiscountController {
     }
 
     @PostMapping("/remove")
-    public ResponseEntity<?> RemoveDiscount(@RequestBody Map<String, Float> value) {
-        float id = value.get("id");
+    public ResponseEntity<?> RemoveDiscount(@RequestBody Map<String, Integer> value) {
+        int id = value.get("id");
+        ArrayList<Discount> discountsRemove = new ArrayList<Discount>();
         Boolean found = false;
         for (AbstractService service : dts.getServices()) {
+            discountsRemove.clear();
             for (Discount discount : service.getDiscounts()) {
                 if (discount.getId() == id) {
                     // Notify all services with the removed discount
-                    service.notifyRemoveDiscount(discount);
+                    discountsRemove.add(discount);
                     found = true;
                 }
+            }
+            for (Discount discount : discountsRemove) {
+                service.notifyRemoveDiscount(discount);
             }
         }
         if (found) {

@@ -1,4 +1,4 @@
-package com.m_code.Fawry.config.swagger;
+package com.m_code.Fawry.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,7 @@ public class SpringFoxConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("org.mesutormanli"))
+                .apis(RequestHandlerSelectors.basePackage("com.m_code"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(metaInfo());
@@ -25,14 +25,12 @@ public class SpringFoxConfig {
 
     private ApiInfo metaInfo() {
         return new ApiInfo(
-                "customer-api",
-                "A very simple Spring Boot REST API, performs CRUD operations on a SQLite database, documented with Swagger2.",
+                "Fawry-Api",
+                "A Spring Boot REST API, that handles payment to various Service Providers, documented with Swagger2.",
                 "1.0",
                 "",
-                new Contact("Mesut ORMANLI", "https://mesutormanli.info",
-                        "mesutormanli@gmail.com"),
-                "GNU General Public License v3.0",
-                "https://www.gnu.org/licenses/gpl-3.0.html", new ArrayList<>()
-        );
+                new Contact("", "", ""),
+                "MIT License",
+                "https://opensource.org/licenses/MIT", new ArrayList<>());
     }
 }

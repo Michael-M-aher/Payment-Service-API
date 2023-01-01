@@ -49,7 +49,7 @@ public class WalletController {
             return ResponseEntity.ok("Amount added");
 
         } else {
-            return ResponseEntity.ok("Insufficent funds in credit cartd");
+            return ResponseEntity.ok("Insufficent funds in credit cart");
         }
     }
 

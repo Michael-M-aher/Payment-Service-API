@@ -66,7 +66,7 @@ public abstract class AbstractService {
         return applyDiscount(firstTime, billAmount);
     }
 
-    private float applyDiscount(Boolean firstTime,float amount) {
+    private float applyDiscount(Boolean firstTime, float amount) {
         float discountAmount = 0;
         for (Discount discount : discounts) {
             if (discount.getDiscountType().equals(DiscountType.Overall) && !firstTime) {
@@ -74,7 +74,7 @@ public abstract class AbstractService {
             }
             discountAmount += discount.getDiscount();
         }
-        return amount - (discountAmount * amount);
+        return amount - ((discountAmount / 100) * amount);
     }
 
     protected abstract float serviceProviderGetBillLogic();
