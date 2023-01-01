@@ -38,7 +38,7 @@ public class TransactionController {
         String username = jwtUtils.getUserNameFromJwtToken(jwtToken);
         ArrayList<Transaction> transactions = dts.getUserTransactions(username);
         for (Transaction transaction : transactions) {
-            if (transaction.getId() == id) {
+            if (transaction.getId() == id && transaction.getTransactionType() == TransactionType.PaymentTransaction) {
                 if (!dts.getRefundRequests().contains(transaction)) {
                     dts.addRefund(transaction);
                     return ResponseEntity.ok("Refund request sent successfully");

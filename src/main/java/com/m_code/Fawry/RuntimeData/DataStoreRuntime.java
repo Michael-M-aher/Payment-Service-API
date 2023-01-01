@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 
 import com.m_code.Fawry.Transaction.models.Transaction;
+import com.m_code.Fawry.Transaction.models.TransactionType;
 import com.m_code.Fawry.Services.AbstractService.AbstractService;
 import com.m_code.Fawry.Services.DonationsServices.*;
 import com.m_code.Fawry.Services.InternetServices.*;
@@ -53,7 +54,13 @@ public class DataStoreRuntime {
     }
 
     public Boolean userFirstTransaction(String username) {
-        return (getUserTransactions(username).size() == 0);
+        for (Transaction transaction : transactions) {
+            if (transaction.getUsername().equals(username)
+                    && transaction.getTransactionType() == TransactionType.PaymentTransaction) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void addTransaction(Transaction transaction) {
