@@ -28,26 +28,17 @@ Once the application runs you should see something like this
 2023-01-01 19:07:33.899  INFO 14948 --- [           main] com.m_code.Fawry.FawryApplication        : Started FawryApplication in 4.963 seconds (JVM running for 5.296)
 ```
 
-## Running the application on local PostgreSQL database
+## Configure PostgreSQL database for the application
 
 - Create a Database in postgresql
 
-- Comment this code
+- change this code
 
 ```
-# online config
-spring.datasource.url=jdbc:postgresql://suleiman.db.elephantsql.com:5432/kfftlrmx
-spring.datasource.username=kfftlrmx
-spring.datasource.password=dKDYrxMvI9IIFfhz6_VP53L1GQPhc5ZU
-```
-
-- Uncomment this code and add your database info
-
-```
-# # local config
-# spring.datasource.url=jdbc:postgresql://localhost:5432/'your database name'
-# spring.datasource.username='username'
-# spring.datasource.password='password'
+# database config
+spring.datasource.url=jdbc:postgresql://localhost:5432/'yourdatabase name'
+spring.datasource.username='username'
+spring.datasource.password='password'
 ```
 
 - Run following SQL insert statements
