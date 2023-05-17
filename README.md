@@ -1,5 +1,5 @@
 
-# Fawry APi
+# Payment Service API
 
 A Spring Boot REST API, that handles payment to various Service Providers, documented with Swagger2.
 * Swagger JSON URL: http://localhost:8080/v2/api-docs
